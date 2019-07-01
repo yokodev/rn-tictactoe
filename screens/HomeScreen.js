@@ -36,6 +36,7 @@ export default function HomeScreen() {
           <Text style={styles.getStartedText}>Get started by opening</Text>
           <Text style={styles.getStartedText}>Contando {count}</Text>
           <Button title="increment" onPress={()=>setCount(count + 1)} />
+          <Button title="Decrement" onPress={()=>setCount(count - 1)} />
 
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
