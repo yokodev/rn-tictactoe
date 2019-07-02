@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import GameScreen from '../screens/GameScreen';
 import NameScreen from '../screens/NameScreen';
 import TictacScreen from '../screens/TictacScreen';
+import HistoryScreen from '../screens/HistoryScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -16,7 +17,9 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     // Results: HomeScreen,
-    Tictac: TictacScreen
+    Results: HistoryScreen,
+    // Tictac: TictacScreen
+    // Game: GameScreen,
   },
   config
 );

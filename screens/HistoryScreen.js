@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoConfigView } from '@expo/samples';
+// import { ExpoConfigView } from '@expo/samples';
+import HistoryItem from '../components/HistoryItem'
 
 export default function HistoryScreen() {
   return (
@@ -9,7 +10,7 @@ export default function HistoryScreen() {
        * Go ahead and delete ExpoLinksView and replace it with your content;
        * we just wanted to provide you with some helpful links.
        */}
-      <ExpoConfigView />
+      <HistoryItem />
     </ScrollView>
   );
 }
