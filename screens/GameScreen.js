@@ -1,42 +1,54 @@
 import React, {useState} from "react"
 import { Input, Text, Button, Overlay } from 'react-native-elements';
-import { View, KeyboardAvoidingView } from 'react-native';
+import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
 import {useNavigation} from 'react-navigation-hooks'
 
 export default function GameScreen() {
   const {navigate} =useNavigation()
   const [visible, setVisible]= useState(true)
+  let [players, setPlayers]= useState({x:'',o:''})
+  const [errorOnPlayers, setErrorOnPlayers]= useState({x:false,o:false})
+
   return (
-    <View style={{flex:1}}>
-      <Overlay isVisible={visible} height="auto" >
-        <View>
-          <Text style={{fontWeight:'bold'}}>Welcome to Gengis....</Text>
-          <Text>In the following inputs type in the name of the players.</Text>
-          <Text>One for X and one for 0 </Text>
-          <Text>Good Luck!!! </Text>
-          <Button title='Got it!' containerStyle={{padding:10}} onPress={() => setVisible(false)} />
+    <ScrollView>
+      <View style={{ flex: 1 }}>
+        <Overlay isVisible={visible} height="auto" >
+          <View>
+            <Text style={{ fontWeight: 'bold' }}>Welcome to Gengis....</Text>
+            <Text>In the following inputs type in the name of the players.</Text>
+            <Text>One for X and one for 0 </Text>
+            <Text>Good Luck!!! </Text>
+            <Button title='Got it!' containerStyle={{ padding: 10 }} onPress={() => setVisible(false)} />
+          </View>
+        </Overlay>
+        <View style={{ alignItems: 'center', padding: 10 }}>
+          <Text h2 >Welcome to Gengis</Text>
         </View>
-      </Overlay>
-      <View style={{alignItems:'center', padding:10 }}>
-        <Text h2 >Welcome to Gengis</Text>
+        <View style={{ padding: 40 }}>
+          <Input
+            leftIcon={{ name: 'alpha-x-circle', type: 'material-community' }}
+            placeholder='First player'
+            errorStyle={{ color: 'red' }}
+            errorMessage="Input can't be empty!"
+            shake={true}
+            name='x'
+            onChangeText={(text) => setPlayers({ ...players, x: text })}
+            value={players.x}
+          />
+          <Input
+            leftIcon={{ name: 'numeric-0-circle', type: 'material-community' }}
+            placeholder='Second player'
+            errorStyle={{ color: 'red' }}
+            errorMessage="Input can't be empty!"
+            shake={true}
+            name='o'
+            onChangeText={(text) => setPlayers({ ...players, o: text })}
+            value={players.o}
+          />
+          <Button title="Submit" onPress={() => navigate('Tictac', { players })} />
+          {/* <Button title="Submit" onPress={()=>alert(players.x,players.o)} /> */}
+        </View>
       </View>
-      <View style={{ padding: 40 }}>
-        <Input
-          label={'Player X'}
-          placeholder='Name of the first player'
-          errorStyle={{ color: 'red' }}
-          errorMessage="Input can't be empty!"
-          shake={true}
-        />
-        <Input
-          label={'Player 0'}
-          placeholder='Name of the second player'
-          errorStyle={{ color: 'red' }}
-          errorMessage="Input can't be empty!"
-          shake={true}
-        />
-        <Button title="Submit" onPress={()=>navigate('Tictac')} />
-        </View>
-    </View>
+    </ScrollView>
   )
 }

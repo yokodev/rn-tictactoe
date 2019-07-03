@@ -34,19 +34,11 @@ export default function HistoryItem() {
       //    start: [1, 0],
       //    end: [0.2, 0],
       //  }}
-      //  ViewComponent={LinearGradient} // Only if no expo
-    //  leftAvatar={{ rounded: true, source: { uri: list[1].avatar_url } }}
-    //  title="Chris Jackson"
-    //  titleStyle={{ color: 'white', fontWeight: 'bold' }}
-    //  subtitleStyle={{ color: 'white' }}
-    //  subtitle="Vice Chairman"
-      //  chevronColor="white"
-      //  chevron
        title={<TicItem/>}
        leftIcon={{ name:'check-circle',}}
        pad={0}
       //  bottomDivider={true}
-     containerStyle={{ backgroundColor:'#81d4fa', borderRadius:10,paddingRight:5,paddingLeft:5}}
+     containerStyle={{ backgroundColor:'#81d4fa', borderRadius:10}}
    />
  ) 
 }

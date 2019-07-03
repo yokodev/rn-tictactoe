@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-// import { ExpoConfigView } from '@expo/samples';
 import HistoryItem from '../components/HistoryItem'
 
 export default function HistoryScreen() {

@@ -1,48 +1,63 @@
 import React, {useState }from "react"
-import { View, StyleSheet, Text, Button } from "react-native"
+import { View, StyleSheet, Text,Alert } from "react-native"
 import Square from './Square'
 import PlayerInfo from '../components/PlayerInfo'
 import { calculateWinner } from '../utils/Functions'
 
-export default function Board() {
+import { useNavigation, useNavigationParam, } from 'react-navigation-hooks'
+
+export default function Board(props) {
   const [squares, setSquares] = useState(Array(9).fill(null))
   const [isXnext, setIsXnext] = useState(true)
   const [gameOver, setGameOver] = useState(false)
+  const players = useNavigationParam('players')
 
+  const resetGame = ()=>{
+    console.log('antes  ',squares)
+    setSquares(Array(9).fill(null))
+    setIsXnext(true)
+    console.log('despues  ',squares)
+    // setGameOver(false)
+  }
+  
   const handleClick = (i)=>{
-    console.log('squares: ',squares)
     let nextSquares = [...squares]
     nextSquares[i]= 'x' 
     if (calculateWinner(squares) || squares[i]) {
       return
     }
-    nextSquares[i] = isXnext ? 'x' : 'o'
+    nextSquares[i] = isXnext ? 'X' : '0'
     setIsXnext(!isXnext)
     setSquares(nextSquares)
-    
-    console.log('DESPUES squares: ',squares)
   }
   const winner = calculateWinner(squares)
   let status
   if (winner) {
     status = `Winner: ${winner}`
+    Alert.alert(
+      'Winner',
+      `The winner is ${winner === 0 ? players.o: players.x}`,
+      [
+        {text:'Save and Exit', onPress:()=> console.log('Save game')},
+        {text: 'Rematch', onPress: ()=>resetGame(),style:'cancel'},
+      ],
+      {cancelable: false},
+    )
+    // resetGame()
   } else {
-    status = `Next player: ${isXnext ? 'X' : 'O'}`;
+    status = `Next player: ${isXnext ? players.x : players.o}`;
   }
 
   const renderSquare =(i)=> {
     return <Square style={styles.square} value={squares[i]}  onPress={()=>{handleClick(i)}} />;
   }
 
-
-  // const status = 'Next player: X';
-
   return (
     <View style={styles.gameBoard}>
       <Text>{status}</Text>
       <View style={styles.playerStatus}> 
-        <PlayerInfo playerName="Jesus" iconOption='x' />
-        <PlayerInfo playerName="Gerardo" iconOption='0' />
+        <PlayerInfo playerName={players.x} iconOption='x' turn={isXnext ? true : false} />
+        <PlayerInfo playerName={players.o} iconOption='0' turn={isXnext ? false : true}/>
       </View>
       <View style={styles.boardRow}>
         {renderSquare(0)}

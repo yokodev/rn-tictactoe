@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import { View, StyleSheet, Text, Button } from "react-native"
 import { Icon } from 'react-native-elements'
 
-export default function PlayerInfo({playerName, iconOption}){
+export default function PlayerInfo({playerName, iconOption, turn}){
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, turn && styles.up]}>
       <Text style={styles.playerInfo}>{playerName}</Text>
       {iconOption === 'x'? 
         <Icon iconStyle={styles.icon}
@@ -18,6 +18,9 @@ export default function PlayerInfo({playerName, iconOption}){
 }
 
 const styles = StyleSheet.create({
+  up:{
+    backgroundColor: '#ff8a80'
+  },
   container: {
     backgroundColor:'white',
     flex:1,
