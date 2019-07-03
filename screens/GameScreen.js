@@ -6,9 +6,18 @@ import {useNavigation} from 'react-navigation-hooks'
 export default function GameScreen() {
   const {navigate} =useNavigation()
   const [visible, setVisible]= useState(true)
-  let [players, setPlayers]= useState({x:'',o:''})
-  const [errorOnPlayers, setErrorOnPlayers]= useState({x:false,o:false})
+  let   [players, setPlayers]= useState({x:'',o:''})
+  const [error, setError]= useState(true)
 
+const checkInputs = ()=>{
+  if (players.x.trim().length > 0 && players.o.trim().length > 0  ){
+    setError(false); 
+    console.log('entro FAK'); 
+    return navigate('Tictac', { players })
+  }else{
+    setError(true); console.log('FAK')
+  }
+}
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
@@ -29,8 +38,8 @@ export default function GameScreen() {
             leftIcon={{ name: 'alpha-x-circle', type: 'material-community' }}
             placeholder='First player'
             errorStyle={{ color: 'red' }}
-            errorMessage="Input can't be empty!"
-            shake={true}
+            errorMessage={error ? "Input can't be empty!":null}
+            shake={error  ? true : false}
             name='x'
             onChangeText={(text) => setPlayers({ ...players, x: text })}
             value={players.x}
@@ -39,13 +48,13 @@ export default function GameScreen() {
             leftIcon={{ name: 'numeric-0-circle', type: 'material-community' }}
             placeholder='Second player'
             errorStyle={{ color: 'red' }}
-            errorMessage="Input can't be empty!"
-            shake={true}
+            errorMessage={error ? "Input can't be empty!":null}
+            shake={error ? true : false}
             name='o'
             onChangeText={(text) => setPlayers({ ...players, o: text })}
             value={players.o}
           />
-          <Button title="Submit" onPress={() => navigate('Tictac', { players })} />
+          <Button title="Submit" onPress={() =>checkInputs()} />
           {/* <Button title="Submit" onPress={()=>alert(players.x,players.o)} /> */}
         </View>
       </View>

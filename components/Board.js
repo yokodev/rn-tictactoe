@@ -2,7 +2,7 @@ import React, {useState }from "react"
 import { View, StyleSheet, Text,Alert } from "react-native"
 import Square from './Square'
 import PlayerInfo from '../components/PlayerInfo'
-import { calculateWinner } from '../utils/Functions'
+import { calculateWinner, getmeArecord, /* writeItemToStorage */ } from '../utils/Functions'
 
 import { useNavigation, useNavigationParam, } from 'react-navigation-hooks'
 
@@ -10,13 +10,12 @@ export default function Board(props) {
   const [squares, setSquares] = useState(Array(9).fill(null))
   const [isXnext, setIsXnext] = useState(true)
   const [gameOver, setGameOver] = useState(false)
+  const { navigate } = useNavigation()
   const players = useNavigationParam('players')
 
   const resetGame = ()=>{
-    console.log('antes  ',squares)
     setSquares(Array(9).fill(null))
     setIsXnext(true)
-    console.log('despues  ',squares)
     // setGameOver(false)
   }
   
@@ -30,6 +29,17 @@ export default function Board(props) {
     setIsXnext(!isXnext)
     setSquares(nextSquares)
   }
+  
+  const saveAndExit=(winner)=>{
+    const itemReady= getmeArecord({players},winner)
+    console.log('itemReady: ',itemReady)
+    // const returnValue = writeItemToStorage(JSON.stringify(itemReady))
+    // console.log('valor retornado de write',returnValue)
+    resetGame()
+    // navigate('Results', { players })
+    navigate('Results') //go back to Results
+  }
+
   const winner = calculateWinner(squares)
   let status
   if (winner) {
@@ -38,7 +48,7 @@ export default function Board(props) {
       'Winner',
       `The winner is ${winner === 0 ? players.o: players.x}`,
       [
-        {text:'Save and Exit', onPress:()=> console.log('Save game')},
+        { text: 'Save and Exit', onPress: () => saveAndExit(winner === 0 ? players.o : players.x)},
         {text: 'Rematch', onPress: ()=>resetGame(),style:'cancel'},
       ],
       {cancelable: false},
