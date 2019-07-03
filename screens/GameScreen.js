@@ -11,11 +11,10 @@ export default function GameScreen() {
 
 const checkInputs = ()=>{
   if (players.x.trim().length > 0 && players.o.trim().length > 0  ){
-    setError(false); 
-    console.log('entro FAK'); 
+    setError(false) 
     return navigate('Tictac', { players })
   }else{
-    setError(true); console.log('FAK')
+    setError(true)
   }
 }
   return (
