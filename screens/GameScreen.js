@@ -12,7 +12,7 @@ import { View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { Formik } from 'formik'
 
-export default function GameScreen() {
+export default function GameScreen(props) {
   
   const { navigate } = useNavigation()
   const [visible, setVisible] = useState(true)
@@ -27,7 +27,9 @@ export default function GameScreen() {
       setError(true)
     }
   }
-
+  const handleSubmit = ()=>{
+    alert (`hello submit`)
+  }
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled >
       <ScrollView>
@@ -50,7 +52,7 @@ export default function GameScreen() {
           <View style={{ alignItems: 'center', padding: 10 }}>
             <Text h2>Welcome to Gengis</Text>
           </View>
-          <Formik>
+          <Formik initialValues={{'x':'', 'o':''}} onSubmit={values =>alert(values)}>
             <View style={{ padding: 40 }}>
               <Input leftIcon={{ name: 'alpha-x-circle', type: 'material-community' }}
                 autoFocus={true}
@@ -58,20 +60,25 @@ export default function GameScreen() {
                 errorStyle={{ color: 'red' }}
                 errorMessage={"Input can't be empty!" }
                 shake={true}
-                name="x"
-                onChangeText={text => setPlayers({ ...players, x: text })}
-                value={players.x}
+                // name="x"
+                // onChangeText={text => setPlayers({ ...players, x: text })}
+                // value={players.x}
+                onChangeText={props.handleChange('x')}
+                onBlur={props.handleBlur('x')}
+                value={props.values.x}
               />
               <Input leftIcon={{ name: 'numeric-0-circle', type: 'material-community' }}
                 placeholder="Second player"
                 errorStyle={{ color: 'red' }}
                 errorMessage={"Input can't be empty!"}
                 shake={true}
-                name="o"
-                onChangeText={text => setPlayers({ ...players, o: text })}
-                value={players.o}
+                // onChangeText={text => setPlayers({ ...players, o: text })}
+                onChangeText={props.handleChange('o')}
+                onBlur={props.handleBlur('o')}
+                value={props.values.o}
+                // value={players.o}
               />
-              <Button title="Submit" onPress={handleSubmit} />
+              <Button title="Submit" onPress={props.handleSubmit} />
               {/* <Button title="Submit" onPress={() => checkInputs()} /> */}
               {/* <Button title="Submit" onPress={()=>alert(players.x,players.o)} /> */}
             </View>
