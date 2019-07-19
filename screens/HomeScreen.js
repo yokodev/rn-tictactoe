@@ -32,7 +32,6 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-        import { ListItem } from 'react-native-elements'
         <View>
           {
             list.map((l, i) => (
