@@ -3,11 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import GameScreen from '../screens/GameScreen';
-import NameScreen from '../screens/NameScreen';
-import TictacScreen from '../screens/TictacScreen';
-import HistoryScreen from '../screens/HistoryScreen';
+import ProductHomeScreen from '../screens/ProductHomeScreen'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -16,13 +12,13 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
-    // Results: HomeScreen,
-    Results: HistoryScreen,
-    // Tictac: TictacScreen
+    Results: ProductHomeScreen
+    // Results: HistoryScreen,
+    // Tictac: TictacScreen--------------
     // Game: GameScreen,
   },
   config
-);
+)
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Results',
@@ -40,29 +36,29 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const GameStack = createStackNavigator(
-  {
-    Game: GameScreen,
-    Names: NameScreen,
-    Tictac: TictacScreen,
-  },
-  config
-);
+// const GameStack = createStackNavigator(
+//   {
+//     Game: GameScreen,
+//     Names: NameScreen,
+//     Tictac: TictacScreen,
+//   },
+//   config
+// );
 
-GameStack.navigationOptions = {
-  tabBarLabel: 'Game',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-grid' : 'md-grid'} />
-  ),
-};
+// GameStack.navigationOptions = {
+//   tabBarLabel: 'Game',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-grid' : 'md-grid'} />
+//   ),
+// };
 
-GameStack.path = '';
+// GameStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  GameStack,
+  // GameStack,
 });
 
-tabNavigator.path = '';
+// tabNavigator.path = '';
 
 export default tabNavigator;
