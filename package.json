@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "commit": "./node_modules/commitizen/bin/git-cz"
   },
   "jest": {
     "preset": "jest-expo"
@@ -36,7 +37,14 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "3.0.2",
     "jest-expo": "^33.0.0"
   },
-  "private": true
+  "private": true,
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
