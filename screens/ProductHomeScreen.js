@@ -13,9 +13,12 @@ export default function ProductHomeScreen() {
 
   const updateSearch = search => setSearch(search)
 
-  useEffect(()=>{
-    setProducts([...getAllProducts()])
-    console.log(products)
+  useEffect( ()=>{
+    async function getProducts(){
+      const results = await getAllProducts()
+      setProducts([...results])
+    }
+    getProducts()
   },[])
   
   return (
