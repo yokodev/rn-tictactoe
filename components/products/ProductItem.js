@@ -9,7 +9,7 @@ export default function ProductItem({title, price }) {
           title={title}
           // subtitle={l.subtitle}
           chevron={true}
-          rightTitle={`${price}`}
+          rightTitle={`$${price}`}
         />
   )
 }

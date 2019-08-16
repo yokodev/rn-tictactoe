@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { ScrollView, StyleSheet,Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 
 import { SearchBar } from 'react-native-elements'
 import ProductList from '../components/products/ProductList'
 import { getAllProducts } from '../service'
+import MyAlert from '../components/MyAlert'
 
 
 export default function ProductHomeScreen() {
@@ -12,12 +13,19 @@ export default function ProductHomeScreen() {
   let [products, setProducts ]= useState([])
 
   const updateSearch = search => setSearch(search)
-
-  useEffect( ()=>{
-    async function getProducts(){
-      const results = await getAllProducts()
-      setProducts([...results])
+  
+  async function getProducts(){
+    try {
+      const products = await getAllProducts()
+      console.log(products)
+      setProducts([...products])
+      
+    } catch (error) {
+      MyAlert('Error',error)
     }
+  }
+//interactomes 
+  useEffect( ()=>{
     getProducts()
   },[])
   

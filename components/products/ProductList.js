@@ -7,7 +7,6 @@ import ProductItem from './ProductItem'
 
 
 export default function ProductList({products}) {
-  const [count, setCount] = useState(0)
   return (
     <ScrollView style={styles.container}
       contentContainerStyle={styles.contentContainer}
